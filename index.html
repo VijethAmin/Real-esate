@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bengaluru House Price Predictor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: url("https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80") no-repeat center center fixed;
+      background-size: cover;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      color: white;
+    }
+
+    .logo {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      height: 70px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-weight: 600;
+      font-size: 24px;
+    }
+
+    label {
+      font-weight: 500;
+      margin-top: 15px;
+      display: block;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      border: none;
+      border-radius: 8px;
+      background: #f4f4f4;
+      color: #333;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      background: #00c853;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background: #00b248;
+    }
+
+    .result {
+      margin-top: 25px;
+      text-align: center;
+      font-size: 20px;
+      color: #00e5ff;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="https://cdn-icons-png.flaticon.com/512/869/869636.png" alt="House Logo">
+    </div>
+    <h2>🏠 Bengaluru House Price Predictor</h2>
+    <form action="/predict" method="post">
+      <label>Total Square Feet</label>
+      <input type="number" name="total_sqft" step="any" required>
+
+      <label>Number of Bathrooms</label>
+      <input type="number" name="bath" min="1" required>
+
+      <label>Number of BHK</label>
+      <input type="number" name="bhk" min="1" required>
+
+      <label>Select Location</label>
+      <select name="location" required>
+        {% for loc in locations %}
+          <option value="{{ loc }}">{{ loc }}</option>
+        {% endfor %}
+      </select>
+
+      <button type="submit">🔍 Predict Price</button>
+    </form>
+
+    {% if prediction_text %}
+      <div class="result">{{ prediction_text }}</div>
+    {% endif %}
+  </div>
+</body>
+</html>
